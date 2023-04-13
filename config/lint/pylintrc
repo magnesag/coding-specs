@@ -1,0 +1,107 @@
+# Pylint configuration options
+# ============================
+#
+# @author A. Schaer
+# @version 1.0.0
+# (C) Magnes AG, 2021.
+
+[MASTER]
+# Multiprocessing for increased speed (especially when linting the whole thing)
+jobs=4
+
+# Specify a score threshold to be exceeded before program exits with error.
+fail-under=8.0
+
+[MESSAGES CONTROL]
+# Messages to be disabled
+# C0413: wrong-import-position
+# E0401: import-error
+# W1202: logging-format-interpolation
+# R0915: too-many-statements
+# R1729: use-a-generator
+# W0511: fixme (TODO comments are allowed)
+# W0703: broad-except
+# W1401: anomalous-backslash-in-string
+# W0621: redefined-outer-name
+# R0801: similar-lines
+# C0201: consider-iterating-dictionary
+# R0904: too-many-public-methods
+# R0902: too-many-instance-attributes
+# C0302: too-many-lines
+# W1203: logging-fstring-interpolation
+# I1101: c-extension-no-member (PySide6)
+disable=C0413,E0401,W1202,R0915,R1729,W0511,W1401,W0621,R0801,C0201,R0904,
+  R0902,C0302,W1203,I1101
+
+[REPORTS]
+# Output format option. Options are text, parseable, colorized, msvs (VS), html.
+output-format=colorized
+
+# Full reports enabling
+reports=no
+
+[BASIC]
+# Good variable names, which should always be accepted
+good-names=main,_
+
+# Variable names can be 1 to 31 characters long, with lowercase and underscores
+variable-rgx=^[_a-zA-Z_][a-zA-Z0-9_]*$
+
+# Attributes must start with an underscore and be between 2 and 32 chars long
+attribute-rgx=^_{1,2}[a-zA-Z0-9_]*$
+
+# Argument names can be 2 to 31 characters long, with lowercase and underscores
+argument-rgx=^[_a-zA-Z_][a-z0-9_]*$
+
+# Method names should be at least 3 characters long and be lower-case with underscores
+method-rgx=((^[a-z_][a-z0-9_]*)|setUp|tearDown)$
+
+# Module names matching
+module-rgx=^[a-zA-Z][a-zA-Z0-9_]*$
+
+# Class names matching: class names should start with a capital letter
+class-rgx=^[A-Z][a-zA-z0-9_]*$
+
+# Don't require docstrings on tests and dunder methods
+no-docstring-rgx=((__.*__)|([tT]est.*)|setUp|tearDown)$
+
+
+[FORMAT]
+# Max line length
+max-line-length=100
+
+# Regexp for a line that is allowed to be longer than the limit.
+ignore-long-lines=(?x)(
+  ^\s*(\#\ )?<?https?://\S+>?$|
+  ^\s*(from\s+\S+\s+)?import\s+.+$)
+
+# Maximum size of a module (virtually unconstrained)
+max-module-lines=99999
+
+# Indentation shall occur via 4-spaces, no tabs allowed
+indent-string='    '
+
+# Indentation after a parent line should be 4 spaces
+indent-after-paren=4
+
+[DESIGN]
+# Maximally allowed method/function arguments (code smell detector)
+max-args=20
+
+# Maximum number of local variables (code smell detector)
+max-locals=32
+
+
+[STRING]
+# Check that string quotes are used consistently within a module
+check-quote-consistency=yes
+
+
+[VARIABLES]
+# Dummy variables REGEX, i.e. uxpectedly unused variables
+dummy-variables-rgx=^\*{0,2}(_$|unused_|dummy_)
+
+
+[MISCELLANEOUS]
+# List of note tags to take in consideration, separated by a comma.
+notes=TODO,WARNING,BUG

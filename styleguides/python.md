@@ -43,3 +43,11 @@ Ideally, each executable file also features:
 
 ## Magic numbers
 Never make use of magic numbers - keep the code readable and maintainable.
+
+## Testing
+Write unittests for your code, or even better use test-driven development.
+Place the tests close to the source, i.e. in each source-containg subfolder,
+place a `test/` folder containg the tests related to the source files at
+that location.
+
+Write your tests using Python's builtin `unittest` module.
