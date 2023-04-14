@@ -16,6 +16,18 @@ with `sal_`.
 | Variables     | Lowercase with underscores                    | `my_var`              |
 | Functions     | Lowercase, with underscores                   | `apply_filter()`      |
 | Types         | Lowercase, with underscores, trailing `_t`    | `new_thing_t`         |
+| Void pointers | Lowercase, with underscoder, leadinfg `_`     | `_any_data`           |
+
+### Void Pointers
+Void pointers are both, a blessing and a curse at the same time.
+They enable generic programming in C at the cost of some losses
+in terms of type checking - as if C wasn't unsafe enough. While
+void pointers are not discouraged, it is good practice to name
+instances thereof in a specific way. At Magnes they shall be named
+with a leading underscore.
+This has a double benefit:
+1. A leading inderscore variable is most probably a void pointer (implicit meaning)
+2. When casting coid poiters to some usable type, the same variable name, without leading undeerscore can be used
 
 ## Integer types
 Always use the standard integers with explicit size defined in
