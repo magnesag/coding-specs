@@ -7,6 +7,9 @@
   * git
   * JS
   * Python
+* Configuration files for
+  * Linting:
+    * Python, using `pylint`: `./config/lint/pylintrc`
 
 ### Changed
 n/a

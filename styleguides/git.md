@@ -15,3 +15,4 @@ Following symbols can be used in git commit messages to save up chars
 | ~         | Change            |
 | !         | Fixed             |
 | x -> y    | Merge x into y    |
+| ^         | Update            |
