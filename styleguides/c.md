@@ -56,6 +56,16 @@ as follows:
 2. Sort the include statements alphabetically within each group
 3. If some include statements require a specific sequence, use comments/notes to enforce and clarify the sequence.
 
+## Function Arguments
+Only pass scalar data by value (`int`s, `float`s, `enum`s). Pass all other variables
+by reference (i.e. any array, `struct`, `union`).
+
+## Datacentric Architecture
+Favour a datacentric architectural approach - make your data define your SW, not
+the other way arouynd.
+In order to achieve this, define composite data-structures and build your SW
+on these definitions.
+
 ## Documentation
 Source code documentation is generated using Doxygen.
 
