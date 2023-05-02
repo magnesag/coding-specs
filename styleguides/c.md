@@ -4,8 +4,8 @@
 For any resource, always use _descriptive_ names. For functions, make
 the name include a verb. In order to prevent excessive namespace pollution,
 define and use an acronym prefix for each library you write. For example,
-in the `superAwesomeLibrary.h`, one could prepend all (public) members
-with `sal_`.
+in the `superAwesomeLibrary.h`, one shall prepend all public members
+with `sal_`. Private (`static`) members can be left without prefix.
 
 | Resource      | Naming style                                  | Example               |
 |---------------|-----------------------------------------------|-----------------------|
