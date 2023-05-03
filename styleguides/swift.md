@@ -1,5 +1,13 @@
 # Swift Style Guide
 
+## Naming conventions
+* Use CamelCase for types (classes, structs, enums, and protocols) and 
+lowerCamelCase for everything else (properties, methods, functions, and variables).
+* Clarity is more important than brevity. Include all the words needed to avoid 
+ambiguity for a person reading code where the name is used.
+* Choose parameter names to serve documentation. Even though parameter names do not 
+appear at a function or method’s point of use, they play an important explanatory role.
+
 ## General Formatting
 
 ### Braces
@@ -21,13 +29,10 @@ and after any open curly brace ({) that is followed by code on the same line,
 * For separating any reserved word starting a conditional or switch statement (such as if, guard, while, or switch),
 * Before and after the arrow (->) preceding the return type of a function.
 
-## Naming conventions
-* Use CamelCase for types (classes, structs, enums, and protocols) and 
-lowerCamelCase for everything else (properties, methods, functions, and variables).
-* Clarity is more important than brevity. Include all the words needed to avoid 
-ambiguity for a person reading code where the name is used.
-* Choose parameter names to serve documentation. Even though parameter names do not 
-appear at a function or method’s point of use, they play an important explanatory role.
+### Types with Shorthand Names
+Arrays, dictionaries, and optional types are written in their shorthand form whenever possible; 
+that is, [Element], [Key: Value], and Wrapped?. The long forms Array<Element>, Dictionary<Key, Value>, and 
+Optional<Wrapped> are only written when required by the compiler.
 
 ## Type, Variable, and Function Declarations
 * In general, most source files contain only one top-level type, especially when the type 
@@ -41,11 +46,6 @@ interpreted by Xcode and provide bookmarks in the source window’s navigation b
 ## Compiler Warnings
 Code should compile without warnings when feasible. Any warnings that are able to be removed easily 
 by the author must be removed.
-
-## Types with Shorthand Names
-Arrays, dictionaries, and optional types are written in their shorthand form whenever possible; 
-that is, [Element], [Key: Value], and Wrapped?. The long forms Array<Element>, Dictionary<Key, Value>, and 
-Optional<Wrapped> are only written when required by the compiler.
 
 ## Testing
 Write unittests for as much components as possible, ideally use
