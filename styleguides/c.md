@@ -29,6 +29,16 @@ This has a double benefit:
 1. A leading inderscore variable is most probably a void pointer (implicit meaning)
 2. When casting coid poiters to some usable type, the same variable name, without leading undeerscore can be used
 
+Let us see a typical example (imagine this function to be of a generic signature type that many actors have to share):
+```C
+int some_function( void *_param1, void *_param2) {
+  float *param1 = (float *)_param1;
+  float *param2 = (float *)_param2;
+  
+  // ... rest of the function using param1 and param2
+}
+```
+
 ## Integer types
 Always use the standard integers with explicit size defined in
 `stdint.h`. Sole exception are `char *` for text strings, but even
