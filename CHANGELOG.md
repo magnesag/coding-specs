@@ -7,6 +7,7 @@
   * git
   * JS
   * Python
+  * Swift
 * Configuration files for
   * Linting:
     * Python, using `pylint`: `./config/lint/pylintrc`
