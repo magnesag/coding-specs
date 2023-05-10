@@ -1,5 +1,8 @@
 # Python Style Guide
 
+## General philosophy
+* Explicit is better than implicit.
+
 ## Code formatting
 Use `black` to format Python code.
 
