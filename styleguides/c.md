@@ -1,5 +1,10 @@
 # C Style Guide
 
+## General philosophy
+* Explicit is better than implicit.
+* Avoid useless operations.
+* Do not over-optimize using blackmagic
+
 ## Naming conventions
 For any resource, always use _descriptive_ names. For functions, make
 the name include a verb. In order to prevent excessive namespace pollution,
