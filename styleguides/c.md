@@ -44,6 +44,28 @@ int some_function( void *_param1, void *_param2) {
 }
 ```
 
+## Bracing style
+Conform to the one true brace style (OTBS) for braces.
+
+```c
+#include <stdint.h>
+#include <stdio.h>
+
+int main(void) {
+  uint32_t a = 1034;
+  for (uint32_t ii = 0; ii < 100; ++ii) {
+    if (a % 2 == 0) {
+      a /= 2;
+    } else {
+      a *= 3;
+      a += 1
+    }
+    printf("%u\n", a);
+  }
+  return 0;
+}
+```
+
 ## Integer types
 Always use the standard integers with explicit size defined in
 `stdint.h`. Sole exception are `char *` for text strings, but even
