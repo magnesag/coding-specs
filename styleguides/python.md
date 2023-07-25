@@ -3,7 +3,7 @@
 ## General philosophy
 * Explicit is better than implicit.
 * Simple is better than complicated.
-* Be SOLID, use abstractions, and data-centric.
+* Be SOLID, use abstractions, and be data-centric.
 
 ## Code formatting
 Use `black` to format Python code.
