@@ -12,14 +12,71 @@ Use `black` to format Python code.
 For any resource, always use _descriptive_ names. For methods and
 functions, make the name start or at least include a verb.
 
-| Resource      | Naming style                  | Example           |
-|---------------|-------------------------------|-------------------|
-| Script        | Lowercase with underscores    | `run_foo.py`      |
-| Module        | Camelcase, lower case initial | `myModule.py`     |
-| Constants     | Uppercase with underscores    | `NO_CHANGE`       |
-| Variables     | Lowercase with underscores    | `my_var`          |
-| Callables     | Lowercase, with underscores   | `apply_filter()`  |
-| Classes       | Camelcase, upper initial      | `MyClass()`       |
+| Resource      | Naming style                                      | Example           |
+|---------------|---------------------------------------------------|-------------------|
+| Script        | Lowercase with underscores                        | `run_foo.py`      |
+| Module        | Camelcase, lower case initial                     | `myModule.py`     |
+| Constants     | Uppercase with underscores                        | `NO_CHANGE`       |
+| Variables     | Lowercase with underscores                        | `my_var`          |
+| Attributes    | Lowercase with underscores and leading underscore | `_my_attr`        |
+| Callables     | Lowercase, with underscores                       | `apply_filter()`  |
+| Classes       | Camelcase, upper initial                          | `MyClass()`       |
+
+### A Note on Attributes
+Python does not really have the concepts _private_ and _public_ for attributes and methods.
+There is a way of obfuscating attributes using a leading double-underscore, but this usually
+introduces more issues than it solves problems, in particular when inheritance is used.
+Thus, the following convention shall be followed:
+* All attributes shall be _regarded_ as private, i.e. they shall not be accessed _directly_ from outside the object,
+instead _getter_ and _setter_ methods shall be implemented.
+* If an attribute is needed to be "public", it shall be defined as a `@property`, whose name shall be the one of the
+reflected attribute, without the leading underscore.
+
+In general, methods should be regarded as public.
+
+```python
+class Thing:
+    """!A thing
+
+    @param value The thing's value
+    """
+
+    def __init__(self, value: float):
+      self._y = 0
+      self._x = value
+      self.update_y()
+
+    @property
+    def x(self) -> float:
+      """!x-getter"""
+      return self._x
+
+    @x.setter
+    def x(self, new: float):
+      """!x-setter
+
+      @param new New value for the thing
+      """
+      self._x = new
+      self.update_y()
+
+    def get_y(self) -> float:
+      """!Non-property attribute getter for y
+
+      @return Value of _y
+      """
+      return self._y
+
+    def update_y(self):
+      """!Update the value of _y"""
+      self._y = self._x * 2
+
+thing = Thing(3.14)
+x = thing.x
+thing.x = 2 * x
+y = thing.get_y()
+# NEVER DO: y = thing._y
+```
 
 ## Docstrings and comments
 Each file, class, method and function has to feature its own docstring. The
