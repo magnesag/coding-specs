@@ -25,6 +25,7 @@ These packages can always be used in Python projects
 - TensorFlow
 - Requests
 - Httpx
+- Aiohttp
 
 Development packages
 - Pytest
