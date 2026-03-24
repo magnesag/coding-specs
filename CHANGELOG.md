@@ -1,22 +1,28 @@
 # Magnes Coding Specs Changelog
 
-## V1.0.0
-### Added
-* Styleguides for:
-  * C
-  * git
-  * JS
-  * Python
-  * Swift
-* Configuration files for
-  * Linting:
-    * Python, using `pylint`: `./config/lint/pylintrc`
-
+## V1.1.0
 ### Changed
-n/a
+- Styleguide for Python
+  - Specified tools (`uv`, `ruff`, etc)
+  - Added third-party whitelist
+  - Cleanup of naming conventions
+  - Documentation conventions (Doxygen -> Numpy-doctrings; + type hints; + design docs and documentation generation)
+  - Explicit magic-numbers alternatives
+  - Testing from `unittests` to `pytest`
+  - Legacy rules section
 
 ### Fixed
-n/a
+- Typos in `README.md`
 
-### Removed
-n/a
+## V1.0.0
+### Added
+- Styleguides for:
+  - C
+  - git
+  - JS
+  - Python
+  - Swift
+- Configuration files for
+  - Linting:
+    - Python, using `pylint`: `./config/lint/pylintrc`
+

@@ -1,129 +1,216 @@
 # Python Style Guide
 
 ## General philosophy
-* Explicit is better than implicit.
-* Simple is better than complicated.
-* Be SOLID, use abstractions, and be data-centric.
+- Explicit is better than implicit.
+- Simple is better than complicated.
+- Be SOLID, use abstractions, and be data-centric.
+
+## Package and Project Management
+- Use `uv` for package and project management.
+  - Use dependency groups: only add to `dependencies` those packages that are needed
+  in the production code.
+  - Place development dependencies, e.g. testing frameworks, in the `dev` group.
+- Always favor well-known third party-libraries over obscure and unknown libraries.
+- Make sure to publish packages to the correct index.
+
+### Third-party packages whitelist
+These packages can always be used in Python projects
+- Numpy
+- Scipy
+- Matplotlib
+- Pandas
+- Bleak
+- Scikit-learn
+- PyTorch
+- TensorFlow
+- Requests
+- Httpx
+
+Development packages
+- Pytest
+- Hypothesis
+- Sphinx
+
+Before using a package not from these lists, check if what you need the other
+package for cannot be done with one or more of the above. Third-party packages
+are always linked to some risk.
 
 ## Code formatting
-Use `black` to format Python code.
+- Use `ruff` or `black` to format Python code.
+- Make sure to format your code before committing (avoid format diffs in MRs).
 
 ## Naming conventions
 For any resource, always use _descriptive_ names. For methods and
 functions, make the name start or at least include a verb.
 
-| Resource      | Naming style                                      | Example           |
-|---------------|---------------------------------------------------|-------------------|
-| Script        | Lowercase with underscores                        | `run_foo.py`      |
-| Module        | Camelcase, lower case initial                     | `myModule.py`     |
-| Constants     | Uppercase with underscores                        | `NO_CHANGE`       |
-| Variables     | Lowercase with underscores                        | `my_var`          |
-| Attributes    | Lowercase with underscores and leading underscore | `_my_attr`        |
-| Callables     | Lowercase, with underscores                       | `apply_filter()`  |
-| Classes       | Camelcase, upper initial                          | `MyClass()`       |
+| Resource        | Naming style                                      | Example           |
+| --------        | ------------                                      | -------           |
+| Script          | Lowercase with underscores                        | `run_foo.py`      |
+| Module          | Camelcase, lower case initial                     | `myModule.py`     |
+| Constants       | Uppercase with underscores                        | `NO_CHANGE`       |
+| Variables       | Lowercase with underscores                        | `my_var`          |
+| Attributes      | Lowercase with underscores and leading underscore | `my_attr`         |
+| Callables       | Lowercase, with underscores                       | `apply_filter()`  |
+| Classes         | Camelcase, upper initial                          | `MyClass()`       |
+| Private member  | Prepend underscore                                | `_hidden`         |
 
-### A Note on Attributes
-Python does not really have the concepts _private_ and _public_ for attributes and methods.
+**Notes and exceptions**
+- Enumeration classes (inheriting from some `enum` object), may use the constants' style (uppercase with underscores).
+- Private member convention can be applied to any: attributes, methods, and functions.
+- These conventions allow for encoding/decoding of what things are, based on their naming style.
+
+### A Note on private members
+Python does not really have the concepts _private_ and _public_ for attributes, methods, or functions.
 There is a way of obfuscating attributes using a leading double-underscore, but this usually
 introduces more issues than it solves problems, in particular when inheritance is used.
 Thus, the following convention shall be followed:
-* All attributes shall be _regarded_ as private, i.e. they shall not be accessed _directly_ from outside the object,
-instead _getter_ and _setter_ methods shall be implemented.
-* If an attribute is needed to be "public", it shall be defined as a `@property`, whose name shall be the one of the
-reflected attribute, without the leading underscore.
-
-In general, methods should be regarded as public.
+- All attributes shall be _regarded_ as private, i.e. they shall not be accessed _directly_ from outside the object.
+- If an attribute is needed to be "public", it shall be defined as a `@property`, whose name shall be the one of the
+reflected attribute, without the leading underscore, and the needed setter and getter methods are to be implemented.
 
 ```python
 class Thing:
-    """!A thing
+    """A thing
 
-    @param value The thing's value
+    Parameters
+    ----------
+    value : float
+      The thing's value
     """
 
     def __init__(self, value: float):
-      self._y = 0
       self._x = value
-      self.update_y()
+
 
     @property
     def x(self) -> float:
-      """!x-getter"""
+      """x-getter
+
+      Returns
+      -------
+      float
+        Value of x
+      """
       return self._x
 
     @x.setter
     def x(self, new: float):
-      """!x-setter
+      """x-setter
 
-      @param new New value for the thing
+      Parameters
+      ----------
+      new : float
+        New value for the thing
       """
       self._x = new
-      self.update_y()
 
-    def get_y(self) -> float:
-      """!Non-property attribute getter for y
-
-      @return Value of _y
-      """
-      return self._y
-
-    def update_y(self):
-      """!Update the value of _y"""
-      self._y = self._x * 2
 
 thing = Thing(3.14)
 x = thing.x
 thing.x = 2 * x
-y = thing.get_y()
-# NEVER DO: y = thing._y
+# NEVER DO: x = thing._x
 ```
 
-## Docstrings and comments
+## Documentation
+### Docstrings and comments
 Each file, class, method and function has to feature its own docstring. The
 docstrings shall include a brief description of what they are referring to
-and, for methods and functions, include a list of the parameters and return
-values (if any).
+and, for methods and functions, include a list of the parameters, return
+values (if any), and exceptions (raises, if any).
 
-Save the doxygen tags such as `@note` for special notes, not the general
-description.
+Docstrings shall be written using the Numpy-docstring style (inspired by
+Google's style).
 
 In-code comments shall be kept to a minimum and only be used where special
 attention is needed or where some not-so-straightforward code is implemented.
 
-## Annotations and type-hints
+### Annotations and type-hints
 Annotate your source code and only use in-code comments (annotations)
 when the code is somewhat special (e.g. mark the `else` of a `for-else`)
-instruction as belonging to the `for`. Otherwise avoid any in-code
+instruction as belonging to the `for`. Otherwise, avoid any in-code
 comments and aim at self-explaining code making use of descriptive
 naming.
+
+Make sure specify type annotations for arguments and return types. If
+a function does not return anything, `-> None` can be omitted. Define
+types (and type-aliases) as needed.
+
+### Design and reporting
+Keep a README.md at the repo's root. Make sure to keep it in sync with the
+actual implementation.
+
+Generate code documentation from the docstrings and annotations, using suitable
+tools such as Sphinx. All the documentation shall live in a `doc/` (or `docs/`)
+directory at the repo's root.
+
+Use design docs to plan changes. These may be simple markdown files specifying
+the features that are to be implemented. Place them at `doc/design/{feature}/`
+
+Design docs are to be git-tracked. Automatically generated documentation may
+not be tracked.
+
+
+## Import statements
+- Group `import` statements by module types - keep one empty line in-between groups:
+  1. Builtin modules
+  2. Third party modules (installed from a package index)
+  3. Custom/own modules
+- Keep each group ordered alphabetically
+
+For all of your codebase, make sure to have a `__init__.py` in each subfolder
+containing Python source which will potentially be imported/used from somewhere else.
 
 ## Executables and `main()`
 Any Python file that is expected to be called on its own must include
 a `if __name__ == "__main__":` conditional section which is to be run
 when executing the file.
 Ideally, each executable file also features:
-* A `main()` function, which is called in the "main" section
-* The shebang line `#!/usr/bin/env python3`
+- A `main()` function, which is called in the "main" section
 
-## Import statements
-* Group `import` statements by module types - keep one empty line inbetween groups:
-  1. Builtin modules
-  2. `pip` modules
-  3. Custom/own modules
-* Keep each group ordered alphabetically
-
-For all of your source code, make sure to have a `__init__.py` in each subfolder
-containg Python source which will potentially be imported/used from somewhere else.
+Scripts shall be executable from the repo's root, i.e. the script `script.py` located at
+`some/path/repo/mod/x/script.py` shall run with
+```bash
+uv run mod/x/script.py
+```
+or
+```bash
+uv run -m mod.x.script
+```
 
 ## Magic numbers
 Never make use of magic numbers - keep the code readable, maintainable, and
-configurable.
+configurable. Define your configuration parameters as human-readable structures.
+Several options are available for this:
+- Constant variables, e.g. `LINE_HEIGHT`
+- Enumerations (for cases where a fixed number of options are viable, e.g. whenever a `Literal` - consider providing mixins for further control)
+- Configuration classes (either as bare classes or dataclasses)
+
+Example bare configuration class
+```python
+class CFG:
+    DIR_NAME = os.path.dirname(__file__)
+
+# Use as CFG.DIR_NAME in code
+```
+
 
 ## Testing
-Write unittests for your code, or even better use test-driven development.
-Place the tests close to the source, i.e. in each source-containg subfolder,
-place a `test/` folder containg the tests related to the source files at
-that location.
+Write unit tests for your code, or even better use test-driven development,
+i.e. define and design the interface of your package first, then implement
+(failing) tests based on the interface, covering standard usage and edge
+cases, then implement the functions to make the tests pass.
 
-Write your tests using Python's builtin `unittest` module. Test shall be
-runnable by calling `python3 -m unittest discover -vv`
+At a minimum, make sure to test the good-weather scenarios and the obvious
+edge cases.
+
+Use `pytest` as testing framework and place all tests in a parallel tree
+mapping the source tree rooted at the same level as the main source.
+For example, the tests for the module `mod` whose source is located
+at `some/path/repo/mod/`, shall be located at `some/path/repo/tests/`.
+Consider using `hypothesis` to test across ranges of values.
+
+## Legacy styles
+The following styles are to be considered legacy and shall be replaced with
+the corresponding new style defined above:
+- Docstrings in Doxygen format
+- Tests close to the source
