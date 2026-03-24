@@ -8,6 +8,7 @@
   - Cleanup of naming conventions
   - Documentation conventions (Doxygen -> Numpy-doctrings; + type hints; + design docs and documentation generation)
   - Explicit magic-numbers alternatives
+  - Added logging and string formatting guide
   - Testing from `unittests` to `pytest`
   - Legacy rules section
 

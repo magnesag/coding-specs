@@ -193,6 +193,21 @@ class CFG:
 # Use as CFG.DIR_NAME in code
 ```
 
+## Logging and string formatting
+Use f-strings to format strings, not C-style formatting, nor `.format()`.
+Use the `logging` module to generate and format log entries. Define one logger
+per file using
+```python
+import logging
+
+...
+
+logger = logging.getLogger(__name__)
+
+...
+
+logger.info(f"Entered stage {ii:d}/{n_stages:d}")
+```
 
 ## Testing
 Write unit tests for your code, or even better use test-driven development,
