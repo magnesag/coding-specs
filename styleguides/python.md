@@ -6,6 +6,7 @@
 - Be SOLID, use abstractions, and be data-centric.
 
 ## Package and Project Management
+- Versioning and dependencies shall be uniquely managed through a `pyproject.toml` file.
 - Use `uv` for package and project management.
   - Use dependency groups: only add to `dependencies` those packages that are needed
   in the production code.
@@ -57,6 +58,7 @@ functions, make the name start or at least include a verb.
 
 **Notes and exceptions**
 - Enumeration classes (inheriting from some `enum` object), may use the constants' style (uppercase with underscores).
+- As enumerations define object of some type, make sure to use singular names and not plural ones, e.g. define `class Currency(enum.Enum): ...` and _not_ `class Currencies(enum.Enum)`. The former does lead to cleaner and more readable type annotations.
 - Private member convention can be applied to any: attributes, methods, and functions.
 - These conventions allow for encoding/decoding of what things are, based on their naming style.
 
@@ -154,8 +156,9 @@ not be tracked.
 ## Import statements
 - Group `import` statements by module types - keep one empty line in-between groups:
   1. Builtin modules
-  2. Third party modules (installed from a package index)
-  3. Custom/own modules
+  2. Third party modules, i.e. project dependencies installed from public PyPIs.
+  3. Custom external modules, i.e. project dependencies installed via private PyPIs.
+  4. Custom local modules (project-internal dependencies)
 - Keep each group ordered alphabetically
 
 For all of your codebase, make sure to have a `__init__.py` in each subfolder
