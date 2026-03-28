@@ -97,6 +97,33 @@ as follows:
 Only pass scalar data by value (`int`s, `float`s, `enum`s). Pass all other variables
 by reference (i.e. any array, `struct`, `union`).
 
+## Use `goto` exclusively for cleanup
+Avoid using `goto` statements except for cases when multiple fail conditions within a function lead to the same
+cleanup code at the end. The function in this case should be kept as short as possible for readability. Example:
+```c
+magnes_err_t example(void) {
+  uint8_t *buff = (uint8_t *) malloc(BUFF_SZ);
+
+  magnes_err_t err = function_that_could_fail_1(buff, BUFF_SZ);
+  if(err != MAGNES_OK) {
+      goto cleanup;
+  }
+  err = function_that_could_fail_2();
+  if(err != MAGNES_OK) {
+      goto cleanup;
+  }
+  err = function_that_could_fail_3(buff, BUFF_SZ);
+  if(err != MAGNES_OK) {
+      goto cleanup;
+  }
+  // ...
+
+cleanup:
+  free(read_buf);
+  return err;
+}
+```
+
 ## Datacentric Architecture
 Favour a datacentric architectural approach - make your data define your SW, not
 the other way arouynd.
