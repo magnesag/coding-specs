@@ -71,6 +71,14 @@ Always use the standard integers with explicit size defined in
 `stdint.h`. Sole exception are `char *` for text strings, but even
 those should be kept at a minimum.
 
+## NULL, 0 and '\0'
+
+*Use* `NULL` for pointers, and `'\0'` for chars.
+
+*Avoid* using `0` for pointers and chars.
+
+Using the correct type makes the code more readable.
+
 ## Include guards
 Use dunder precompiler definitions as include guards, i.e. if the header
 `myHead.h` is to be included anywhere (and it will), put all of its code
