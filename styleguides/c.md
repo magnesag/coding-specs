@@ -109,10 +109,10 @@ int main(void) {
 ```
 
 ## Integer Types
-Always prefer standard integer types with explicit width from `stdint.h`, e.g.
-`uint8_t`, `int16_t`, `uint32_t`.
-
-The main exception is textual data, where `char *` remains appropriate.
+When memory is focal, and for storage variables, use standard integer types with explicit width from `stdint.h`, e.g.
+`uint8_t`, `int16_t`, `uint32_t`. 
+For data operations, it is conversely suggested to use the more portable `int` type, because it is faster and guaranteed
+to be atomic.
 
 ## Include Guards
 Use dunder preprocessor definitions as include guards.
@@ -133,7 +133,7 @@ If the header is `myHead.h`, structure it like this:
 
 ## Include Instructions
 1. Group includes by type, starting with standard libraries (`<...>`)
-2. Then include ESP-IDF or other external-library headers
+2. Then include project API headers (e.g. ESP-IDF) or other external-library headers
 3. Then include project-local headers
 4. Sort includes alphabetically within each group
 5. If a specific order is required, add a short note explaining why
@@ -163,17 +163,6 @@ structure, not the other way around.
 
 Define the relevant composite data structures first, then build the behavior
 around those explicit contracts.
-
-## Logging
-Use ESP logging macros such as `ESP_LOGE()`, `ESP_LOGW()`, `ESP_LOGI()`, and
-`ESP_LOGD()` for output.
-
-Define log tags via uppercase macros.
-
-Example:
-```c
-#define DRIVER_XY_TAG "[Driver XY]"
-```
 
 ## Pragmas and Literals
 Preprocessor pragmas and literals defined through them shall be uppercase with
@@ -218,7 +207,8 @@ For example, an estimator should not care which concrete IC provides the data it
 uses.
 
 ## Documentation
-Source code documentation is generated using Doxygen.
+Source code should be documented. The conventions can depend on the specific repository,
+e.g. `Doxygen` is currently used for `nushu_mcu`.
 
 Document:
 - each source file
@@ -230,28 +220,12 @@ Functions shall be documented where their prototype is declared. If a function
 has no prototype, document it at the implementation site.
 
 Keep inline comments to a minimum. Prefer self-explanatory naming. Use inline
-comments only for unusual behavior or non-obvious constraints. Mark such
-comments with `@note` where appropriate so they remain visible in generated
-documentation.
+comments only for unusual behavior or non-obvious constraints.
 
 ## Testing
-Write unit tests for as much code as possible. Unity is the required test
-framework for C code in this project.
+Write unit tests for as much code as possible.
 
-Use both:
-- on-device tests
-- host-side tests, where abstraction makes them possible
-
-Test-driven development is encouraged.
+Test-driven development is not mandated but can be helpful.
 
 If a function cannot reasonably be tested in isolation, write an ignored test
 with a clear reason.
-
-Example:
-```c
-TEST_CASE("Test SPI transaction", SPI_DRIVER_TEST_TAG) {
-  TEST_IGNORE_MESSAGE(
-      "SPI transaction call requires IC with which to "
-      "communicate - function is tested within SPI-IC-driver tests");
-}
-```
