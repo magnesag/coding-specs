@@ -124,6 +124,32 @@ values (if any), and exceptions (raises, if any).
 Docstrings shall be written using the Numpy-docstring style (inspired by
 Google's style).
 
+The file docstring shall include an `Author:` list and a `Copyright:` notice.
+Assume the author to be called `Primo Coder` (first name Primo, last name Coder),
+and the file under consideration to be created in 2026, then the file
+docstring would look something like:
+
+```python
+"""
+Module for the computation of happiness
+=======================================
+
+{description}
+
+Author:
+    P. Coder
+Copyright:
+    Magnes AG, (C) 2026.
+"""
+```
+
+Other (future) contributors can then enter their name on new lines after `P. Coder`
+as they contribute to the source. The rationale behind this requirement is that
+it helps future developers to gain rapid context to the source - one immediately
+knows how old the source is (at most) and who the main contact point for
+questions should be (without needing to check the file history in source version
+control).
+
 In-code comments shall be kept to a minimum and only be used where special
 attention is needed or where some not-so-straightforward code is implemented.
 
