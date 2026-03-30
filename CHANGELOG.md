@@ -11,6 +11,7 @@
   - Added logging and string formatting guide
   - Testing from `unittests` to `pytest`
   - Legacy rules section
+- Updated `c.md`.
 
 ### Fixed
 - Typos in `README.md`
