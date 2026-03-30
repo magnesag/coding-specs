@@ -6,7 +6,7 @@
   - Specified tools (`uv`, `ruff`, etc)
   - Added third-party whitelist
   - Cleanup of naming conventions
-  - Documentation conventions (Doxygen -> Numpy-doctrings; + type hints; + design docs and documentation generation)
+  - Documentation conventions (Doxygen -> Numpy-doctrings; + type hints; + design docs and documentation generation, authorship and copyright notice)
   - Explicit magic-numbers alternatives
   - Added logging and string formatting guide
   - Testing from `unittests` to `pytest`
